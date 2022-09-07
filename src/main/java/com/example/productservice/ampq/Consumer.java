@@ -1,7 +1,6 @@
 package com.example.productservice.ampq;
 
-import com.example.productservice.service.PriceService;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import com.example.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class Consumer {
 
     @Autowired
-    PriceService priceService;
+    ProductService productService;
 
     /*
     @RabbitListener(queues = "#{queue.name}", returnExceptions = "true")
