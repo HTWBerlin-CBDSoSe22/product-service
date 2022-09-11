@@ -1,4 +1,4 @@
-package com.example.productservice.model;
+package main.java.com.example.productservice.model;
 
 public class Component {
 
@@ -113,6 +113,5 @@ public class Component {
     public void setHarvestSeason(String harvestSeason) {
         this.harvestSeason = harvestSeason;
     }
-
 
 }

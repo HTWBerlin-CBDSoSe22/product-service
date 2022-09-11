@@ -1,27 +1,19 @@
-package com.example.productservice.model;
-
-import java.util.HashSet;
-import java.util.Set;
+package main.java.com.example.productservice.model;
 
 public class Product {
 
-    private Long productId; //todo woher kommt die dann
-    private Set<Component> consistsOf = new HashSet<Component>();
+    private ComponentList consistsOf;
     public String name;
 
-    public Product(String name, Set<Component> components) {
+    public Product(String name, ComponentList components) {
         this.name = name;
         this.consistsOf = components;
     }
 
     public Product() { }
 
-    public Set<Component> getConsistsOf() {
+    public ComponentList getConsistsOf() {
         return consistsOf;
-    }
-
-    public Long getProductId() {
-        return productId;
     }
 
     public String getName() {
@@ -32,7 +24,4 @@ public class Product {
         this.name = name;
     }
 
-    public void addComponent(Component component) {
-        consistsOf.add(component);
-    } //todo relevant?
 }

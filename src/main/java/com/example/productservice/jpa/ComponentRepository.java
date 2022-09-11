@@ -1,6 +1,6 @@
-package com.example.productservice.jpa;
+package main.java.com.example.productservice.jpa;
 
-import com.example.productservice.model.Component;
+import main.java.com.example.productservice.model.Component;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ComponentRepository extends CrudRepository<Component, Long> {
