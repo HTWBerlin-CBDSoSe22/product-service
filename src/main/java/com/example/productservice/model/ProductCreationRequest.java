@@ -5,13 +5,21 @@ import java.util.List;
 public class ProductCreationRequest {
 
     String productName;
-    List<Component> productConsistsOf;
+    ComponentList productConsistsOf;
+
+    public ProductCreationRequest(String productName, ComponentList productConsistsOf) {
+        this.productName = productName;
+        this.productConsistsOf = productConsistsOf;
+    }
+    public ProductCreationRequest() {
+
+    }
 
     public String getProductName() {
         return productName;
     }
 
-    public List<Component> getProductConsistsOf() {
+    public ComponentList getProductConsistsOf() {
         return productConsistsOf;
     }
 

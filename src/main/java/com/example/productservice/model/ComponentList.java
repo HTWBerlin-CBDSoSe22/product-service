@@ -20,4 +20,8 @@ public class ComponentList {
     public void setComponents(List<Component> products) {
         this.components = components;
     }
+
+    public void addComponent(Component newComponent){
+        components.add(newComponent);
+    }
 }
