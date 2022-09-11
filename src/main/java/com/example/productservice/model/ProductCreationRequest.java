@@ -1,4 +1,4 @@
-package main.java.com.example.productservice.model;
+package com.example.productservice.model;
 
 import java.util.List;
 

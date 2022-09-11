@@ -1,8 +1,8 @@
-package main.java.com.example.productservice.service;
+package com.example.productservice.service;
 
-import main.java.com.example.productservice.model.ComponentList;
-import main.java.com.example.productservice.model.Product;
-import main.java.com.example.productservice.model.ProductCreationRequest;
+import com.example.productservice.model.ComponentList;
+import com.example.productservice.model.Product;
+import com.example.productservice.model.ProductCreationRequest;
 import org.springframework.stereotype.Service;
 
 @Service

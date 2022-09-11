@@ -1,8 +1,8 @@
-package main.java.com.example.productservice.ampq;
+package com.example.productservice.ampq;
 
-import main.java.com.example.productservice.model.Product;
-import main.java.com.example.productservice.model.ProductCreationRequest;
-import main.java.com.example.productservice.service.ProductService;
+import com.example.productservice.model.Product;
+import com.example.productservice.model.ProductCreationRequest;
+import com.example.productservice.service.ProductService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
