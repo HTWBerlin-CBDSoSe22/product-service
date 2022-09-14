@@ -1,27 +1,44 @@
 package com.example.productservice.model;
 
+import java.util.Set;
+
 public class Product {
-
-    private ComponentList consistsOf;
-    public String name;
-
-    public Product(String name, ComponentList components) {
-        this.name = name;
-        this.consistsOf = components;
-    }
 
     public Product() { }
 
-    public ComponentList getConsistsOf() {
-        return consistsOf;
+    public Product(Long id, String name, Set<Component> consistsOf) {
+        this.id = id;
+        this.name = name;
+        this.consistsOf = consistsOf;
     }
+
+    private Long id = null;
+    private String name;
+    private Set<Component> consistsOf;
 
     public String getName() {
         return name;
     }
 
+    public Set<Component> getConsistsOf() {
+        return consistsOf;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setConsistsOf(Set<Component> consistsOf) {
+        this.consistsOf = consistsOf;
+    }
+
 
 }
