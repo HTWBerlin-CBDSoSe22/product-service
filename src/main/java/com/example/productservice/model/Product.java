@@ -1,20 +1,28 @@
 package com.example.productservice.model;
 
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "product")
 public class Product {
 
-    public Product() { }
 
-    public Product(Long id, String name, Set<Component> consistsOf) {
-        this.id = id;
-        this.name = name;
-        this.consistsOf = consistsOf;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long productId;
 
-    private Long id = null;
-    private String name;
-    private Set<Component> consistsOf;
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="products_components",
+            joinColumns = @JoinColumn(name="product_id"),
+            inverseJoinColumns = @JoinColumn(name="component_id")
+    )
+    private Set<Component> consistsOf = new HashSet<Component>();
+
+    @Column(name = "name")
+    public String name;
 
     public String getName() {
         return name;
@@ -25,11 +33,11 @@ public class Product {
     }
 
     public Long getId() {
-        return id;
+        return productId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.productId = id;
     }
 
     public void setName(String name) {
@@ -40,5 +48,12 @@ public class Product {
         this.consistsOf = consistsOf;
     }
 
+    public Product() { }
+
+    public Product(Long id, String name, Set<Component> consistsOf) {
+        this.productId = id;
+        this.name = name;
+        this.consistsOf = consistsOf;
+    }
 
 }
