@@ -8,6 +8,7 @@ import java.util.Set;
 @Table(name = "product")
 public class Product {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
