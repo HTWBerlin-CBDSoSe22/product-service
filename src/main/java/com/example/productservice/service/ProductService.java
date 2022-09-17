@@ -2,6 +2,7 @@ package com.example.productservice.service;
 
 import com.example.productservice.jpa.ProductRepository;
 import com.example.productservice.model.Product;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,6 +27,11 @@ public class ProductService {
              productRepository.save(responseProduct);
         }
         return responseProduct;
+    }
+
+    @Scheduled(fixedRate = 5000)
+    public void getFromWarehouse() {
+        System.out.println("Scheduler Test: Das soll alle 5 Sekunden passieren");
     }
 
 }
