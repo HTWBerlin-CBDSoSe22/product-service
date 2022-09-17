@@ -1,18 +1,54 @@
 package com.example.productservice.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "component")
 public class Component {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long componentId;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "consistsOf")
+    private Set<Product> isInProducts = new HashSet<>();
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private double price;
+
+    @Column(name = "height")
     private double height;
+
+    @Column(name = "weight")
     private double weight;
+
+    @Column(name = "color")
     private String color;
+
+    @Column(name = "countryOfOrigin")
     private String countryOfOrigin;
+
+    @Column(name = "grade")
     private String grade;
+
+    @Column(name = "category")
     private String category;
+
+    @Column(name = "classification")
     private String classification;
+
+    @Column(name = "harvestSeason")
     private String harvestSeason;
+
 
     public Component(String name, double price, double height, double weight, String color, String countryOfOrigin, String grade, String category, String classification, String harvestSeason) {
         this.name = name;

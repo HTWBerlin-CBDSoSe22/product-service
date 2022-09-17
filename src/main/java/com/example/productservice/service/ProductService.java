@@ -1,17 +1,31 @@
 package com.example.productservice.service;
 
-import com.example.productservice.model.ComponentList;
+import com.example.productservice.jpa.ProductRepository;
 import com.example.productservice.model.Product;
-import com.example.productservice.model.*;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ProductService {
 
-    //receives request consisting of desired name for product + components
-    public Product createProduct(ProductMicroserviceDto request) {
-        Product createdProduct = new Product(request.getName(), (ComponentList) request.getConsistsOf());
-        return createdProduct;
+    private static ProductRepository productRepository;
+
+    public Optional<Product> findProduct(Long idOfProduct) {
+        Optional<Product> foundProduct = null;
+        if (productRepository.findById(idOfProduct).isPresent()) {
+            foundProduct = productRepository.findById(idOfProduct);
+        }
+        return foundProduct;
+    }
+
+    public Product createProduct(Product request) {
+        Product responseProduct = new Product();
+        if (request.getId() == null) {
+             responseProduct = new Product(request.getId(), request.getName(), request.getConsistsOf());
+             productRepository.save(responseProduct);
+        }
+        return responseProduct;
     }
 
 }
