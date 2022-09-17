@@ -10,7 +10,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long id;
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
@@ -32,11 +32,11 @@ public class Product {
     }
 
     public Long getId() {
-        return productId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.productId = id;
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -47,12 +47,6 @@ public class Product {
         this.consistsOf = consistsOf;
     }
 
-    public Product() { }
-
-    public Product(Long id, String name, Set<Component> consistsOf) {
-        this.productId = id;
-        this.name = name;
-        this.consistsOf = consistsOf;
+    public Product() {
     }
-
 }

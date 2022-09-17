@@ -34,6 +34,13 @@ public class Config {
                 .with(ROUTING_KEY);
     }
     @Bean
+    public Binding binding2(DirectExchange directExchange,
+                            Queue componentQueue) {
+        return BindingBuilder.bind(componentQueue)
+                .to(directExchange)
+                .with("getInformation");
+    }
+    @Bean
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
     }

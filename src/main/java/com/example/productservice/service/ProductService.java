@@ -22,8 +22,8 @@ public class ProductService {
     public Product createProduct(Product request) {
         Product responseProduct = new Product();
         if (request.getId() == null) {
-             responseProduct = new Product(request.getId(), request.getName(), request.getConsistsOf());
-             productRepository.save(responseProduct);
+            responseProduct = request;
+            productRepository.save(responseProduct);
         }
         return responseProduct;
     }
