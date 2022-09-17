@@ -11,21 +11,25 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config {
 
-    private final String ROUTING_KEY = "calculatePrice";
+    private final String ROUTING_KEY = "createProduct";
     private final String DIRECT_EXCHANGE = "itemExchange";
-    private final String QUEUE_NAME = "calculatePriceQueue";
+//    private final String QUEUE_NAME = "calculatePriceQueue";
 
     @Bean
     public DirectExchange directExchange() {
         return new DirectExchange(DIRECT_EXCHANGE);
     }
     @Bean
-    public Queue queue() {
-        return new Queue(QUEUE_NAME);
+    public Queue componentQueue() {
+        return new Queue("componentQueue");
     }
     @Bean
-    public Binding binding(DirectExchange directExchange, Queue queue) {
-        return BindingBuilder.bind(queue)
+    public Queue productQueue() {
+        return new Queue("productQueue");
+    }
+    @Bean
+    public Binding binding(DirectExchange directExchange, Queue productQueue) {
+        return BindingBuilder.bind(productQueue())
                 .to(directExchange)
                 .with(ROUTING_KEY);
     }
