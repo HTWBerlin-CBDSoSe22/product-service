@@ -14,36 +14,43 @@ public class Consumer {
     @Autowired
     ProductService productService;
 
-    @RabbitListener(queues = "#{productQueue.name}", returnExceptions = "true")
+    @RabbitListener(queues = "#{singleProductQueue.name}")
     public Product handleProductCreationRequest(Product product)  {
         Product createdOrFoundProduct = product;
         if(product.getId() == null) {
-//        createdOrFoundProduct = productService.createProduct(product);
+//todo        createdOrFoundProduct = productService.createProduct(product);
         }else {
-//        createdOrFoundProduct = productService.findProduct(product.getId());
+//todo        createdOrFoundProduct = productService.findProduct(product.getId());
         }
         return createdOrFoundProduct;
     }
-    @RabbitListener(queues = "#{componentQueue.name}", returnExceptions = "true")
+    @RabbitListener(queues = "#{componentQueue.name}")
     public List<com.example.productservice.model.Component> handleComponentInformationRequest(String message)  {
         List<com.example.productservice.model.Component> listOfComponents = new ArrayList<>();
         if(message.equals("showComponents")) {
-            // fetch components
+            //  todo fetch components
             listOfComponents.add(new com.example.productservice.model.Component("Berry",1, 0.5, 12, "red",
                     "Germany", "H. I", "Good",
                     "classification", "summer"));
         }else {
             try {
                 Long.parseLong(message);
-                // fetch component by id
-                listOfComponents.add(new com.example.productservice.model.Component("Berry",1, 0.5, 12, "red",
+                //  todo fetch component by id
+                listOfComponents.add(new com.example.productservice.model.Component("Banana",1, 0.5, 12, "red",
                 "Germany", "H. I", "Good",
                 "classification", "summer"));
-            }catch (Exception e){
+            }catch (NumberFormatException e){
                 e.printStackTrace();
             }
         }
         return listOfComponents;
+    }
+
+    @RabbitListener(queues = "#{allProductsQueue.name}")
+    public List<Product> handleFetchAllProductsRequest(String message) {
+        System.out.println(message);
+        //TODO fetch all products from db
+        return new ArrayList<>();
     }
 
 }

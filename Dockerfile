@@ -1,18 +1,15 @@
-FROM openjdk:17-oracle as build
-WORKDIR /workspace/app
+#
+# Build stage
+#
+FROM maven:3.8.5-openjdk-17 AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package -DskipTests
 
-COPY ../mvnw .
-COPY ../.mvn .mvn
-COPY ../pom.xml .
-COPY ../src src
-
-RUN ./mvnw install -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-
+#
+# Package stage
+#
 FROM openjdk:17-oracle
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/target/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.microservice.PriceServiceApplication"]
+COPY --from=build /home/app/target/*.jar demo.jar
+EXPOSE 8086
+ENTRYPOINT ["java","-jar","demo.jar"]
