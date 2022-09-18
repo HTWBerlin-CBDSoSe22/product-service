@@ -17,27 +17,23 @@ public class ProductService {
         Product foundProduct = null;
         foundProduct = productRepository.findById(idOfProduct).orElseThrow(() -> new ResourceNotFoundException("No Product with id " + idOfProduct));
         return foundProduct;
-       /* Product foundProduct = null;
-        if (productRepository.findById(idOfProduct).isPresent()) {
-            foundProduct = productRepository.findById(idOfProduct).get();
-        }
-        return foundProduct;
-        */
     }
 
     public List<Product> findProducts() throws ResourceNotFoundException {
-        if (productRepository.findAll() == null) { //todo always false
-            throw new ResourceNotFoundException("Repository is empty");
+        List<Product> products;
+        products = (List<Product>) productRepository.findAll();
+        if (products.size() < 1) {
+            throw new ResourceNotFoundException("No components found");
         }
-        return productRepository.findAll();
+        return products;
     }
 
     public Product createProduct(Product request) {
         Product responseProduct = new Product();
         if (request.getId() == null) {
-             responseProduct = new Product(request.getId(), request.getName(), request.getConsistsOf());
-             //responseProduct.setId(); todo set to was
-             productRepository.save(responseProduct);
+            responseProduct = new Product(request.getId(), request.getName(), request.getConsistsOf());
+            //responseProduct.setId(); todo set to was
+            productRepository.save(responseProduct);
         }
         return responseProduct;
     }

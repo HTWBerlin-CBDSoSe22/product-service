@@ -1,9 +1,15 @@
 
 *.class
-*.class
-*.class
 target/classes/com/example/productservice/ampq/Config.class
 target/classes/com/example/productservice/ampq/Consumer.class
-*.class
 .idea/workspace.xml
 target/classes/com/example/productservice/service/ProductService.class
+# Default ignored files
+/shelf/
+/workspace.xml
+/target
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

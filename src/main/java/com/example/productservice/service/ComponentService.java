@@ -1,5 +1,6 @@
 package com.example.productservice.service;
 
+import com.example.productservice.exception.ResourceNotFoundException;
 import com.example.productservice.jpa.ComponentRepository;
 import com.example.productservice.model.Component;
 import org.springframework.stereotype.Service;
@@ -13,13 +14,16 @@ public class ComponentService {
 
     public Component findComponentById(Long idOfComponent) {
         Component foundComponent = null;
-        if (componentRepository.findById(idOfComponent).isPresent()) {
-            foundComponent = componentRepository.findById(idOfComponent).get();
-        }
+        foundComponent = componentRepository.findById(idOfComponent).orElseThrow(() -> new ResourceNotFoundException("No Product with id " + idOfComponent));
         return foundComponent;
     }
 
-    public List<Component> findComponents() {
-        return (List<Component>) componentRepository.findAll();
+    public List<Component> findComponents() throws ResourceNotFoundException {
+        List<Component> components;
+        components = (List<Component>) componentRepository.findAll();
+        if (components.size() < 1) {
+            throw new ResourceNotFoundException("No components found");
+        }
+        return components;
     }
 }
