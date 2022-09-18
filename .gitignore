@@ -5,3 +5,5 @@
 target/classes/com/example/productservice/ampq/Config.class
 target/classes/com/example/productservice/ampq/Consumer.class
 *.class
+.idea/workspace.xml
+target/classes/com/example/productservice/service/ProductService.class
