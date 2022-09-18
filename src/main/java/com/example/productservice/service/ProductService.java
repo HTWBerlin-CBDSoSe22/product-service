@@ -1,13 +1,11 @@
 package com.example.productservice.service;
 
-import com.example.productservice.jpa.ComponentRepository;
 import com.example.productservice.jpa.ProductRepository;
 import com.example.productservice.model.Product;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -30,6 +28,7 @@ public class ProductService {
         Product responseProduct = new Product();
         if (request.getId() == null) {
              responseProduct = new Product(request.getId(), request.getName(), request.getConsistsOf());
+             //responseProduct.setId(); todo set to was
              productRepository.save(responseProduct);
         }
         return responseProduct;
