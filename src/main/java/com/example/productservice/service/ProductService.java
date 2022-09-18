@@ -1,10 +1,12 @@
 package com.example.productservice.service;
 
+import com.example.productservice.jpa.ComponentRepository;
 import com.example.productservice.jpa.ProductRepository;
 import com.example.productservice.model.Product;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +20,10 @@ public class ProductService {
             foundProduct = productRepository.findById(idOfProduct);
         }
         return foundProduct;
+    }
+
+    public List<Product> findProducts() {
+        return productRepository.findAll();
     }
 
     public Product createProduct(Product request) {
