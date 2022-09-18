@@ -1,0 +1,7 @@
+
+*.class
+*.class
+*.class
+target/classes/com/example/productservice/ampq/Config.class
+target/classes/com/example/productservice/ampq/Consumer.class
+*.class
