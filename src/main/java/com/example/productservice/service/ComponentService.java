@@ -11,13 +11,13 @@ import java.util.Optional;
 public class ComponentService {
 
     private static ComponentRepository componentRepository;
-    
-    public Optional<Component> findProduct(Long idOfProduct) {
-        Optional<Component> foundProduct = null;
-        if (componentRepository.findById(idOfProduct).isPresent()) {
-            foundProduct = componentRepository.findById(idOfProduct);
+
+    public Component findComponentById(Long idOfComponent) {
+        Component foundComponent = null;
+        if (componentRepository.findById(idOfComponent).isPresent()) {
+            foundComponent = componentRepository.findById(idOfComponent).get();
         }
-        return foundProduct;
+        return foundComponent;
     }
 
     public List<Component> findComponents() {

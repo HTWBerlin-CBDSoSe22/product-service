@@ -14,10 +14,10 @@ public class ProductService {
 
     private static ProductRepository productRepository;
 
-    public Optional<Product> findProduct(Long idOfProduct) {
-        Optional<Product> foundProduct = null;
+    public Product findProductById(Long idOfProduct) {
+        Product foundProduct = null;
         if (productRepository.findById(idOfProduct).isPresent()) {
-            foundProduct = productRepository.findById(idOfProduct);
+            foundProduct = productRepository.findById(idOfProduct).get();
         }
         return foundProduct;
     }
