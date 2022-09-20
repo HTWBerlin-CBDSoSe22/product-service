@@ -52,5 +52,4 @@ public class Consumer {
         //TODO fetch all products from db
         return new ArrayList<>();
     }
-
 }
