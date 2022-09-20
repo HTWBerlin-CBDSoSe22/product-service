@@ -12,11 +12,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="products_components",
-            joinColumns = @JoinColumn(name="product_id"),
-            inverseJoinColumns = @JoinColumn(name="component_id")
+            name = "products_components",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "component_id")
     )
     private Set<Component> consistsOf = new HashSet<Component>();
 
@@ -49,4 +49,11 @@ public class Product {
 
     public Product() {
     }
+
+    public Product(Long id, String name, Set<Component> consistsOf) {
+        this.id = id;
+        this.name = name;
+        this.consistsOf = consistsOf;
+    }
+
 }
