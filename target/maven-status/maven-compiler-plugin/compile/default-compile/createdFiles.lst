@@ -1,8 +1,0 @@
-com\example\productservice\jpa\ComponentRepository.class
-com\example\productservice\ProductServiceApplication.class
-com\example\productservice\ampq\Consumer.class
-com\example\productservice\model\Product.class
-com\example\productservice\ampq\Config.class
-com\example\productservice\jpa\ProductRepository.class
-com\example\productservice\service\ProductService.class
-com\example\productservice\model\Component.class
