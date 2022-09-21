@@ -3,6 +3,8 @@ package com.example.productservice.service;
 import com.example.productservice.exception.ResourceNotFoundException;
 import com.example.productservice.jpa.ProductRepository;
 import com.example.productservice.model.Product;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductService {
@@ -43,25 +47,20 @@ public class ProductService {
 
     @Scheduled(fixedRate = 5000)
     public void getProductsFromWarehouse() throws IOException {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ObjectMapper objectMapper = new ObjectMapper();
 
         Request request = new Request.Builder()
                 .url("http:localhost:8081/products")
                 .build();
 
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            public void onResponse(Call call, Response response) throws IOException {
-           //     List<Product> products = response.body();
-                System.out.println(response.body());
-            }
+        Response response = okHttpClient.newCall(request).execute();
 
-            public void onFailure(Call call, IOException e) {
-         //       fail();
-            }
-        });
+        String jsonString = Objects.requireNonNull(response.body()).string();
+        Product[] productsFromWarehouseArray = objectMapper.readValue(jsonString, Product[].class);
+        List<Product> productsFromWarehouse = Arrays.asList(productsFromWarehouseArray);
 
-       // productRepository.saveAll(products);
+        productRepository.saveAll(productsFromWarehouse);
         System.out.println("Scheduler Test: Das soll alle 5 Sekunden passieren");
     }
 
