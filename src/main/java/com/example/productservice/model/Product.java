@@ -24,6 +24,8 @@ public class Product {
     @Column(name = "name")
     public String name;
 
+    public Product() {}
+
     public String getName() {
         return name;
     }
@@ -48,9 +50,6 @@ public class Product {
         this.consistsOf = consistsOf;
     }
 
-    public Product() {
-    }
-
     public Product(Long id, String name, Set<Component> consistsOf) {
         this.productId = id;
         this.name = name;
@@ -63,4 +62,11 @@ public class Product {
         this.consistsOf = consistsOf;
     }
 
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 }

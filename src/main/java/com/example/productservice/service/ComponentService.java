@@ -3,6 +3,7 @@ package com.example.productservice.service;
 import com.example.productservice.exception.ResourceNotFoundException;
 import com.example.productservice.jpa.ComponentRepository;
 import com.example.productservice.model.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +11,12 @@ import java.util.List;
 @Service
 public class ComponentService {
 
-    private static ComponentRepository componentRepository;
+    @Autowired
+    public ComponentService(ComponentRepository componentRepository) {
+        this.componentRepository = componentRepository;
+    }
+
+    private ComponentRepository componentRepository;
 
     public Component findComponentById(Long idOfComponent) {
         Component foundComponent = null;

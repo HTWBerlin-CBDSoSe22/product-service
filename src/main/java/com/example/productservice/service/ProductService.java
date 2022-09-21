@@ -3,15 +3,12 @@ package com.example.productservice.service;
 import com.example.productservice.exception.ResourceNotFoundException;
 import com.example.productservice.jpa.ProductRepository;
 import com.example.productservice.model.Product;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +16,12 @@ import java.util.Objects;
 @Service
 public class ProductService {
 
-    private static ProductRepository productRepository;
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    private ProductRepository productRepository;
 
     public Product findProductById(Long idOfProduct) throws ResourceNotFoundException {
         Product foundProduct = null;
@@ -57,6 +59,7 @@ public class ProductService {
         Response response = okHttpClient.newCall(request).execute();
 
         String jsonString = Objects.requireNonNull(response.body()).string();
+        System.out.println(jsonString);
         Product[] productsFromWarehouseArray = objectMapper.readValue(jsonString, Product[].class);
         List<Product> productsFromWarehouse = Arrays.asList(productsFromWarehouseArray);
 
