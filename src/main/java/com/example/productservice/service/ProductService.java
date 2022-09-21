@@ -3,6 +3,7 @@ package com.example.productservice.service;
 import com.example.productservice.exception.ResourceNotFoundException;
 import com.example.productservice.jpa.ProductRepository;
 import com.example.productservice.model.Product;
+import okhttp3.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -42,11 +43,25 @@ public class ProductService {
 
     @Scheduled(fixedRate = 5000)
     public void getProductsFromWarehouse() throws IOException {
-        URL url = new URL("http://localhost:8081/products");
-        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-        List<Product> products = (List<Product>) httpCon.getInputStream();
+        OkHttpClient client = new OkHttpClient();
 
-        productRepository.saveAll(products);
+        Request request = new Request.Builder()
+                .url("http:localhost:8081/products")
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            public void onResponse(Call call, Response response) throws IOException {
+           //     List<Product> products = response.body();
+                System.out.println(response.body());
+            }
+
+            public void onFailure(Call call, IOException e) {
+         //       fail();
+            }
+        });
+
+       // productRepository.saveAll(products);
         System.out.println("Scheduler Test: Das soll alle 5 Sekunden passieren");
     }
 
