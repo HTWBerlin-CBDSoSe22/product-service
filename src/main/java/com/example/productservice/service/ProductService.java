@@ -48,12 +48,12 @@ public class ProductService {
     }
 
     @Scheduled(fixedRate = 5000)
-    public void getProductsFromWarehouse() throws IOException {
+    public void getDataFromWarehouse() throws IOException {
         OkHttpClient okHttpClient = new OkHttpClient();
         ObjectMapper objectMapper = new ObjectMapper();
-
+        //todo get components FIRST
         Request request = new Request.Builder()
-                .url("http:localhost:8081/products")
+                .url("http:localhost:8081/products/1")
                 .build();
 
         Response response = okHttpClient.newCall(request).execute();
@@ -63,6 +63,8 @@ public class ProductService {
         Product[] productsFromWarehouseArray = objectMapper.readValue(jsonString, Product[].class);
         List<Product> productsFromWarehouse = Arrays.asList(productsFromWarehouseArray);
 
+        //Product receivedProduct = objectMapper.readValue(jsonString, Product.class);
+        //productRepository.save(receivedProduct);
         productRepository.saveAll(productsFromWarehouse);
         System.out.println("Scheduler Test: Das soll alle 5 Sekunden passieren");
     }
