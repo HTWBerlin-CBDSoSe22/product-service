@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a66f04d-79b6-4543-b7d7-97213ac1a68b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/productservice/ProductServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/productservice/ProductServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/productservice/exception/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/productservice/exception/ResourceNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/productservice/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/productservice/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/productservice/service/ComponentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/productservice/service/ComponentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/productservice/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/productservice/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/productservice/ProductServiceApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/productservice/ampq/Config.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/productservice/ampq/Consumer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/productservice/jpa/ComponentRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/productservice/jpa/ProductRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/productservice/model/Component.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/productservice/model/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/productservice/model/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/productservice/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/productservice/service/ProductService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/product-service-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/product-service-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +79,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -156,6 +166,7 @@
       <workItem from="1663185557353" duration="854000" />
       <workItem from="1663441418121" duration="959000" />
       <workItem from="1663442511724" duration="2212000" />
+      <workItem from="1663768427778" duration="4098000" />
     </task>
     <servers />
   </component>

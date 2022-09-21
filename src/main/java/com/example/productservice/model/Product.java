@@ -8,9 +8,9 @@ import java.util.Set;
 @Table(name = "product")
 public class Product {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID",updatable = false, nullable = false)
     private Long productId;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -53,6 +53,12 @@ public class Product {
 
     public Product(Long id, String name, Set<Component> consistsOf) {
         this.productId = id;
+        this.name = name;
+        this.consistsOf = consistsOf;
+    }
+
+    public Product (String name, Set<Component> consistsOf) {
+        this.productId = productId;
         this.name = name;
         this.consistsOf = consistsOf;
     }

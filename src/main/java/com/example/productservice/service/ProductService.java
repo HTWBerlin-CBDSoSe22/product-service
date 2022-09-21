@@ -6,6 +6,9 @@ import com.example.productservice.model.Product;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 @Service
@@ -31,15 +34,19 @@ public class ProductService {
     public Product createProduct(Product request) {
         Product responseProduct = new Product();
         if (request.getId() == null) {
-            responseProduct = new Product(request.getId(), request.getName(), request.getConsistsOf());
-            //responseProduct.setId(); todo set to was
+            responseProduct = new Product(request.getName(), request.getConsistsOf());
             productRepository.save(responseProduct);
         }
         return responseProduct;
     }
 
     @Scheduled(fixedRate = 5000)
-    public void getFromWarehouse() {
+    public void getProductsFromWarehouse() throws IOException {
+        URL url = new URL("http://localhost:8081/products");
+        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+        List<Product> products = (List<Product>) httpCon.getInputStream();
+
+        productRepository.saveAll(products);
         System.out.println("Scheduler Test: Das soll alle 5 Sekunden passieren");
     }
 
