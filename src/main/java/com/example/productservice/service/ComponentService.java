@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -24,6 +25,9 @@ public class ComponentService {
     public ComponentService(ComponentRepository componentRepository) {
         this.componentRepository = componentRepository;
     }
+
+    @Value("${warehouse.components.url}")
+    private String url;
 
     private ComponentRepository componentRepository;
 
@@ -46,7 +50,7 @@ public class ComponentService {
         OkHttpClient okHttpClient = new OkHttpClient();
         ObjectMapper objectMapper = new ObjectMapper();
         Request request = new Request.Builder()
-                .url("http:localhost:8081/components")
+                .url(this.url)
                 .build();
         try {
             Response response = okHttpClient.newCall(request).execute();

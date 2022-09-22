@@ -18,9 +18,9 @@ public class Consumer {
 
     @RabbitListener(queues = "#{singleProductQueue.name}", returnExceptions = "true")
     public Product handleProductCreationRequest(Product product)  {
-        Product createdOrFoundProduct = product;
+        Product createdOrFoundProduct;
         if(this.checkCreationOrFetchRequest(product)) {
-            this.productService.createProduct(product);
+            createdOrFoundProduct = this.productService.createProduct(product);
         }else {
             createdOrFoundProduct = this.productService.findProductById(product.getProductId());
         }
@@ -30,15 +30,12 @@ public class Consumer {
     public List<com.example.productservice.model.Component> handleComponentInformationRequest(String message)  {
         List<com.example.productservice.model.Component> listOfComponents = new ArrayList<>();
         if(message.equals("showComponents")) {
-            //  todo fetch components
             listOfComponents = this.componentService.findComponents();
         }else {
             try {
-                Long.parseLong(message);
-                //  todo fetch component by id
-                listOfComponents.add(new com.example.productservice.model.Component("Banana",1, 0.5, 12, "red",
-                "Germany", "H. I", "Good",
-                "classification", "summer"));
+                Long componentId = Long.parseLong(message);
+                com.example.productservice.model.Component foundComponent = this.componentService.findComponentById(componentId);
+                listOfComponents.add(foundComponent);
             }catch (NumberFormatException e){
                 e.printStackTrace();
             }
@@ -47,7 +44,7 @@ public class Consumer {
     }
 
     @RabbitListener(queues = "#{allProductsQueue.name}", returnExceptions = "true")
-    public List<Product> handleFetchAllProductsRequest(String message) {
+    public List<Product> handleFetchAllProductsRequest() {
         List<Product> foundProducts = this.productService.findProducts();
         return foundProducts;
     }

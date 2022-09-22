@@ -7,6 +7,7 @@ import com.example.productservice.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,8 @@ public class ProductService {
         this.productRepository = productRepository;
         this.componentService = componentService;
     }
+    @Value("${warehouse.products.url}")
+    private String url;
 
     private ProductRepository productRepository;
     private ComponentService componentService;
@@ -67,7 +70,7 @@ public class ProductService {
         OkHttpClient okHttpClient = new OkHttpClient();
         ObjectMapper objectMapper = new ObjectMapper();
         Request request = new Request.Builder()
-                .url("http:localhost:8081/products")
+                .url(this.url)
                 .build();
         try {
             Response response = okHttpClient.newCall(request).execute();
