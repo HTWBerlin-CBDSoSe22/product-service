@@ -8,8 +8,10 @@ import java.util.Set;
 @Table(name = "product")
 public class Product {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID",updatable = false, nullable = false)
     private Long id;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -56,4 +58,9 @@ public class Product {
         this.consistsOf = consistsOf;
     }
 
+    public Product (String name, Set<Component> consistsOf) {
+        this.id = id;
+        this.name = name;
+        this.consistsOf = consistsOf;
+    }
 }
