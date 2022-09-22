@@ -3,7 +3,6 @@ package com.example.productservice.service;
 import com.example.productservice.exception.ResourceNotFoundException;
 import com.example.productservice.jpa.ComponentRepository;
 import com.example.productservice.model.Component;
-import com.example.productservice.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -41,7 +40,7 @@ public class ComponentService {
         return components;
     }
 
-    public void getComponentsFromWarehouse() throws IOException {
+    public void importComponentsFromWarehouse() throws IOException {
         OkHttpClient okHttpClient = new OkHttpClient();
         ObjectMapper objectMapper = new ObjectMapper();
         Request request = new Request.Builder()
