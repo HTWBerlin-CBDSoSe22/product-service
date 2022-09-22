@@ -10,21 +10,20 @@ import java.util.List;
 
 @Component
 public class Consumer {
-
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
-    @RabbitListener(queues = "#{singleProductQueue.name}")
+    @RabbitListener(queues = "#{singleProductQueue.name}", returnExceptions = "true")
     public Product handleProductCreationRequest(Product product)  {
         Product createdOrFoundProduct = product;
-        if(product.getId() == null) {
-//todo        createdOrFoundProduct = productService.createProduct(product);
+        if(this.checkCreationOrFetchRequest(product)) {
+            this.productService.createProduct(product);
         }else {
-//todo        createdOrFoundProduct = productService.findProduct(product.getId());
+            createdOrFoundProduct = this.productService.findProductById(product.getId());
         }
         return createdOrFoundProduct;
     }
-    @RabbitListener(queues = "#{componentQueue.name}")
+    @RabbitListener(queues = "#{componentQueue.name}", returnExceptions = "true")
     public List<com.example.productservice.model.Component> handleComponentInformationRequest(String message)  {
         List<com.example.productservice.model.Component> listOfComponents = new ArrayList<>();
         if(message.equals("showComponents")) {
@@ -48,8 +47,12 @@ public class Consumer {
 
     @RabbitListener(queues = "#{allProductsQueue.name}")
     public List<Product> handleFetchAllProductsRequest(String message) {
-        System.out.println(message);
-        //TODO fetch all products from db
-        return new ArrayList<>();
+        List<Product> foundProducts = this.productService.findProducts();
+        return foundProducts;
+    }
+
+    private boolean checkCreationOrFetchRequest(Product receivedProduct) {
+        boolean shouldBeCreated = (receivedProduct.getId() == null);
+        return shouldBeCreated;
     }
 }
