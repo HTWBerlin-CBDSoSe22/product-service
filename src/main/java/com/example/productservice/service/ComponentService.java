@@ -25,9 +25,9 @@ public class ComponentService {
 
     private ComponentRepository componentRepository;
 
-    public Component findComponentById(Long idOfComponent) {
+    public Component findComponentById(Long idOfComponent) throws ResourceNotFoundException {
         Component foundComponent = null;
-        foundComponent = componentRepository.findById(idOfComponent).orElseThrow(() -> new ResourceNotFoundException("No Product with id " + idOfComponent));
+        foundComponent = componentRepository.findById(idOfComponent).orElseThrow(() -> new ResourceNotFoundException("No Component with id " + idOfComponent));
         return foundComponent;
     }
 
