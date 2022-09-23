@@ -25,8 +25,8 @@ public class ProductService {
         this.componentService = componentService;
     }
 
-    private ProductRepository productRepository;
-    private ComponentService componentService;
+    private final ProductRepository productRepository;
+    private final ComponentService componentService;
 
     public Product findProductById(Long idOfProduct) throws ResourceNotFoundException {
         Product foundProduct = null;
