@@ -8,6 +8,7 @@ import java.util.Set;
 @Table(name = "product")
 public class Product {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID",updatable = false, nullable = false)
@@ -24,8 +25,6 @@ public class Product {
     @Column(name = "name")
     public String name;
 
-    public Product() {}
-
     public String getName() {
         return name;
     }
@@ -34,11 +33,11 @@ public class Product {
         return consistsOf;
     }
 
-    public Long getId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setId(Long id) {
+    public void setProductId(Long id) {
         this.productId = id;
     }
 
@@ -50,8 +49,11 @@ public class Product {
         this.consistsOf = consistsOf;
     }
 
-    public Product(Long id, String name, Set<Component> consistsOf) {
-        this.productId = id;
+    public Product() {
+    }
+
+    public Product(Long productId, String name, Set<Component> consistsOf) {
+        this.productId = productId;
         this.name = name;
         this.consistsOf = consistsOf;
     }
@@ -60,13 +62,5 @@ public class Product {
         this.productId = productId;
         this.name = name;
         this.consistsOf = consistsOf;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
     }
 }

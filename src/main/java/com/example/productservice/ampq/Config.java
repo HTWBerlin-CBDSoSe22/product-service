@@ -13,35 +13,56 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Config {
 
-    private final String ROUTING_KEY = "createProduct";
+    private final String ROUTING_KEY_SINGLE_PRODUCT = "createProduct";
+
+    private final String ROUTING_KEY_ALL_PRODUCTS = "getAllProducts";
+
+    private final String ROUTING_KEY_COMPONENTS = "getInformation";
+
     private final String DIRECT_EXCHANGE = "itemExchange";
-//    private final String QUEUE_NAME = "calculatePriceQueue";
 
     @Bean
     public DirectExchange directExchange() {
         return new DirectExchange(DIRECT_EXCHANGE);
     }
+
     @Bean
     public Queue componentQueue() {
         return new Queue("componentQueue");
     }
+
     @Bean
-    public Queue productQueue() {
-        return new Queue("productQueue");
+    public Queue singleProductQueue() {
+        return new Queue("singleProductQueue");
     }
+
     @Bean
-    public Binding binding(DirectExchange directExchange, Queue productQueue) {
-        return BindingBuilder.bind(productQueue())
+    public Queue allProductsQueue() {
+        return new Queue("allProductsQueue");
+    }
+
+    @Bean
+    public Binding bindingSingleProductQueueToExchange(DirectExchange directExchange, Queue singleProductQueue) {
+        return BindingBuilder.bind(singleProductQueue)
                 .to(directExchange)
-                .with(ROUTING_KEY);
+                .with(ROUTING_KEY_SINGLE_PRODUCT);
     }
+
     @Bean
-    public Binding binding2(DirectExchange directExchange,
-                            Queue componentQueue) {
+    public Binding bindingAllProductsQueueToExchange(DirectExchange directExchange, Queue allProductsQueue) {
+        return BindingBuilder.bind(allProductsQueue)
+                .to(directExchange)
+                .with(ROUTING_KEY_ALL_PRODUCTS);
+    }
+
+    @Bean
+    public Binding bindingComponentsQueueExchange(DirectExchange directExchange,
+                                                  Queue componentQueue) {
         return BindingBuilder.bind(componentQueue)
                 .to(directExchange)
-                .with("getInformation");
+                .with(ROUTING_KEY_COMPONENTS);
     }
+
     @Bean
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
