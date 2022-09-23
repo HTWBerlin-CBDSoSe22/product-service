@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -53,13 +54,6 @@ public class ProductService {
         return responseProduct;
     }
 
-    @Scheduled(fixedRate = 180000)
-    public void importDataFromWarehouse() throws IOException {
-        componentService.importComponentsFromWarehouse();
-        importProductsFromWarehouse();
-        System.out.println("Scheduler: Data from Warehouse imported, next import in 3 minutes.");
-    }
-
     public void importProductsFromWarehouse() throws IOException {
         OkHttpClient okHttpClient = new OkHttpClient();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -75,4 +69,14 @@ public class ProductService {
         productRepository.saveAll(productsFromWarehouse);
     }
 
+    // PostConstruct enables initial execution on application start
+    // cron job will be executed every day 1am Berlin time
+    // second, minute, hour, day of month, month, day(s) of week
+    @PostConstruct
+    @Scheduled(cron = "0 0 1 * * *", zone="Europe/Berlin")
+    public void importDataFromWarehouse() throws IOException {
+        componentService.importComponentsFromWarehouse();
+        importProductsFromWarehouse();
+        System.out.println("Scheduler: Data from Warehouse imported, next import tomorrow 1am.");
+    }
 }
