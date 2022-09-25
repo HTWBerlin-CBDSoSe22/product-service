@@ -1,10 +1,10 @@
-package com.example.productservice.service;
+package com.productservice.service;
 
-import com.example.productservice.exception.CouldNotCreateException;
-import com.example.productservice.exception.ResourceNotFoundException;
-import com.example.productservice.exception.WarehouseNotReachableException;
-import com.example.productservice.jpa.ProductRepository;
-import com.example.productservice.model.Product;
+import com.productservice.exception.CouldNotCreateException;
+import com.productservice.exception.ResourceNotFoundException;
+import com.productservice.exception.WarehouseNotReachableException;
+import com.productservice.jpa.ProductRepository;
+import com.productservice.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,7 @@ public class ProductService {
         this.productRepository = productRepository;
         this.componentService = componentService;
     }
+
     @Value("${warehouse.products.url}")
     private String url;
 
@@ -71,7 +72,7 @@ public class ProductService {
             Product[] productsFromWarehouseArray = objectMapper.readValue(jsonString, Product[].class);
             List<Product> productsFromWarehouse = Arrays.asList(productsFromWarehouseArray);
             productRepository.saveAll(productsFromWarehouse);
-        }catch(ConnectException e) {
+        } catch (ConnectException e) {
             throw new WarehouseNotReachableException("Warehouse not reachable for component import");
         }
     }
@@ -80,13 +81,13 @@ public class ProductService {
     // cron job will be executed every day 1am Berlin time
     // second, minute, hour, day of month, month, day(s) of week
     @PostConstruct
-    @Scheduled(cron = "0 0 1 * * *", zone="Europe/Berlin")
+    @Scheduled(cron = "0 0 1 * * *", zone = "Europe/Berlin")
     public void importDataFromWarehouse() throws IOException {
         try {
             componentService.importComponentsFromWarehouse();
             importProductsFromWarehouse();
             System.out.println("Scheduler: Data from Warehouse imported, next import tomorrow 1am.");
-        } catch(WarehouseNotReachableException e){
+        } catch (WarehouseNotReachableException e) {
             e.printStackTrace();
         }
     }

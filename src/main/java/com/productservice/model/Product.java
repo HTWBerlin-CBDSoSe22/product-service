@@ -1,4 +1,4 @@
-package com.example.productservice.model;
+package com.productservice.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID",updatable = false, nullable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private Long productId;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -58,7 +58,7 @@ public class Product {
         this.consistsOf = consistsOf;
     }
 
-    public Product (String name, Set<Component> consistsOf) {
+    public Product(String name, Set<Component> consistsOf) {
         this.productId = productId;
         this.name = name;
         this.consistsOf = consistsOf;

@@ -1,16 +1,5 @@
 # product-service
 
-● create 5 products with hardware components
+This service imports data stored in Warehouse once a day to a product database and is also responsible for creating and
+saving new products.
 
-● don’t store prices and currencies in DB (redis is allowed)
-
----------------------
-- swagger im gateway
-
-- produkt mit 1 komponente macht fehler im preis-ms ?
-
-- integration tests
-
-- änderungen von justin von gestern in anderen branches
-
-- cloud hosting der docker container

@@ -1,9 +1,9 @@
-package com.example.productservice.service;
+package com.productservice.service;
 
-import com.example.productservice.exception.ResourceNotFoundException;
-import com.example.productservice.exception.WarehouseNotReachableException;
-import com.example.productservice.jpa.ComponentRepository;
-import com.example.productservice.model.Component;
+import com.productservice.exception.ResourceNotFoundException;
+import com.productservice.exception.WarehouseNotReachableException;
+import com.productservice.jpa.ComponentRepository;
+import com.productservice.model.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

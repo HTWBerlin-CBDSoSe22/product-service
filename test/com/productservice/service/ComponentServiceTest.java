@@ -1,9 +1,7 @@
-package com.example.productservice.service;
+package com.productservice.service;
 
-import com.example.productservice.jpa.ComponentRepository;
+import com.productservice.jpa.ComponentRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ComponentServiceTest {
 

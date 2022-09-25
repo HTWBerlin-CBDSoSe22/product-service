@@ -1,4 +1,4 @@
-package com.example.productservice.exception;
+package com.productservice.exception;
 
 public class CouldNotCreateException extends InstantiationException  {
     public CouldNotCreateException(String message) {

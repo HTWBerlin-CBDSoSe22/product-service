@@ -1,4 +1,4 @@
-package com.example.productservice.model;
+package com.productservice.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

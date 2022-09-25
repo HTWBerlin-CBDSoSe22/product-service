@@ -1,8 +1,8 @@
-package com.example.productservice.service;
+package com.productservice.service;
 
-import com.example.productservice.jpa.ComponentRepository;
-import com.example.productservice.jpa.ProductRepository;
-import com.example.productservice.model.Product;
+import com.productservice.jpa.ComponentRepository;
+import com.productservice.jpa.ProductRepository;
+import com.productservice.model.Product;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

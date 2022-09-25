@@ -1,4 +1,4 @@
-package com.example.productservice.ampq;
+package com.productservice.ampq;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

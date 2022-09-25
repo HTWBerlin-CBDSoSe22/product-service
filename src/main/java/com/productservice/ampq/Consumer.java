@@ -1,42 +1,46 @@
-package com.example.productservice.ampq;
+package com.productservice.ampq;
 
-import com.example.productservice.model.Product;
-import com.example.productservice.service.ComponentService;
-import com.example.productservice.service.ProductService;
+import com.productservice.exception.CouldNotCreateException;
+import com.productservice.model.Product;
+import com.productservice.service.ComponentService;
+import com.productservice.service.ProductService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class Consumer {
+
     @Autowired
     private ProductService productService;
     @Autowired
     private ComponentService componentService;
 
     @RabbitListener(queues = "#{singleProductQueue.name}", returnExceptions = "true")
-    public Product handleProductCreationRequest(Product product)  {
+    public Product handleProductCreationRequest(Product product) throws CouldNotCreateException {
         Product createdOrFoundProduct;
-        if(this.checkCreationOrFetchRequest(product)) {
+        if (this.checkCreationOrFetchRequest(product)) {
             createdOrFoundProduct = this.productService.createProduct(product);
-        }else {
+        } else {
             createdOrFoundProduct = this.productService.findProductById(product.getProductId());
         }
         return createdOrFoundProduct;
     }
+
     @RabbitListener(queues = "#{componentQueue.name}", returnExceptions = "true")
-    public List<com.example.productservice.model.Component> handleComponentInformationRequest(String message)  {
-        List<com.example.productservice.model.Component> listOfComponents = new ArrayList<>();
-        if(message.equals("showComponents")) {
+    public List<com.productservice.model.Component> handleComponentInformationRequest(String message) {
+        List<com.productservice.model.Component> listOfComponents = new ArrayList<>();
+        if (message.equals("showComponents")) {
             listOfComponents = this.componentService.findComponents();
-        }else {
+        } else {
             try {
                 Long componentId = Long.parseLong(message);
-                com.example.productservice.model.Component foundComponent = this.componentService.findComponentById(componentId);
+                com.productservice.model.Component foundComponent = this.componentService.findComponentById(componentId);
                 listOfComponents.add(foundComponent);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
