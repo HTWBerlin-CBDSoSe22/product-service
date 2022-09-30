@@ -29,21 +29,21 @@ public class ComponentService {
     @Value("${warehouse.components.url}")
     private String url;
 
-    private ComponentRepository componentRepository;
+    private final ComponentRepository componentRepository;
 
     public Component findComponentById(Long idOfComponent) throws ResourceNotFoundException {
-        Component foundComponent = null;
+        Component foundComponent;
         foundComponent = componentRepository.findById(idOfComponent).orElseThrow(() -> new ResourceNotFoundException("No Component with id " + idOfComponent));
         return foundComponent;
     }
 
     public List<Component> findComponents() throws ResourceNotFoundException {
-        List<Component> components;
-        components = (List<Component>) componentRepository.findAll();
-        if (components.size() < 1) {
+        List<Component> foundComponents;
+        foundComponents = (List<Component>) componentRepository.findAll();
+        if (foundComponents.size() < 1) {
             throw new ResourceNotFoundException("No components found");
         }
-        return components;
+        return foundComponents;
     }
 
     public void importComponentsFromWarehouse() throws IOException, WarehouseNotReachableException {
@@ -62,5 +62,6 @@ public class ComponentService {
         } catch (ConnectException e) {
             throw new WarehouseNotReachableException("Warehouse not found");
         }
+
     }
 }

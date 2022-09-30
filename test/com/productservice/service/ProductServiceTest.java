@@ -4,15 +4,20 @@ import com.productservice.jpa.ComponentRepository;
 import com.productservice.jpa.ProductRepository;
 import com.productservice.model.Product;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductServiceTest {
+@SpringBootTest
+public class ProductServiceTest {
 
+    @Autowired
     private ProductRepository productRepository;
+    @Autowired
     private ComponentRepository componentRepository;
-    private final ComponentService componentService = new ComponentService(componentRepository);
-    private final ProductService productService = new ProductService(productRepository, componentService);
+
+    private final ComponentService componentService = new ComponentService(this.componentRepository);
+    private final ProductService productService = new ProductService(this.productRepository, this.componentService);
 
     Product findMe = new Product(1L, "TestProduct", null);
 

@@ -21,13 +21,13 @@ public class Consumer {
 
     @RabbitListener(queues = "#{singleProductQueue.name}", returnExceptions = "true")
     public Product handleProductCreationRequest(Product product) throws CouldNotCreateException {
-        Product createdOrFoundProduct;
-        if (this.checkCreationOrFetchRequest(product)) {
-            createdOrFoundProduct = this.productService.createProduct(product);
+        Product requestedProduct;
+        if (this.notYetCreated(product)) {
+            requestedProduct = this.productService.createProduct(product);
         } else {
-            createdOrFoundProduct = this.productService.findProductById(product.getProductId());
+            requestedProduct = this.productService.findProductById(product.getProductId());
         }
-        return createdOrFoundProduct;
+        return requestedProduct;
     }
 
     @RabbitListener(queues = "#{componentQueue.name}", returnExceptions = "true")
@@ -49,12 +49,10 @@ public class Consumer {
 
     @RabbitListener(queues = "#{allProductsQueue.name}", returnExceptions = "true")
     public List<Product> handleFetchAllProductsRequest() {
-        List<Product> foundProducts = this.productService.findProducts();
-        return foundProducts;
+        return this.productService.findProducts();
     }
 
-    private boolean checkCreationOrFetchRequest(Product receivedProduct) {
-        boolean shouldBeCreated = (receivedProduct.getProductId() == null);
-        return shouldBeCreated;
+    private boolean notYetCreated(Product product) {
+        return (product.getProductId() == null);
     }
 }

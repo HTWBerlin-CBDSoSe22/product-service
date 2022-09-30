@@ -35,29 +35,29 @@ public class ProductService {
     private final ComponentService componentService;
 
     public Product findProductById(Long idOfProduct) throws ResourceNotFoundException {
-        Product foundProduct = null;
+        Product foundProduct;
         foundProduct = productRepository.findById(idOfProduct).orElseThrow(() -> new ResourceNotFoundException("No Product with id " + idOfProduct));
         return foundProduct;
     }
 
     public List<Product> findProducts() throws ResourceNotFoundException {
-        List<Product> products;
-        products = productRepository.findAll();
-        if (products.size() < 1) {
+        List<Product> foundProducts;
+        foundProducts = productRepository.findAll();
+        if (foundProducts.size() < 1) {
             throw new ResourceNotFoundException("No products found");
         }
-        return products;
+        return foundProducts;
     }
 
     public Product createProduct(Product request) throws CouldNotCreateException {
-        Product responseProduct = new Product();
+        Product newProduct = new Product();
         if (request.getProductId() == null) {
-            responseProduct = new Product(request.getName(), request.getConsistsOf());
-            productRepository.save(responseProduct);
+            newProduct = new Product(request.getName(), request.getConsistsOf());
+            productRepository.save(newProduct);
         } else {
             throw new CouldNotCreateException("Product could not be created");
         }
-        return responseProduct;
+        return newProduct;
     }
 
     public void importProductsFromWarehouse() throws IOException, WarehouseNotReachableException {
@@ -91,4 +91,5 @@ public class ProductService {
             e.printStackTrace();
         }
     }
+
 }
